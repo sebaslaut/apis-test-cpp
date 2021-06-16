@@ -1,0 +1,446 @@
+#ifndef _TSTRINGS_T_
+#define _TSTRINGS_T_
+
+#include <iostream>
+#include <stdio.h>
+#include <math.h>
+#include <string>
+using namespace std;
+
+int length(string s)
+{
+   int i=0;
+   while(s[i]!='\0'){i++;}
+  return i;
+}
+
+int charCount(string s,char c)
+{
+   int letra=0;
+   for(int i=0;i<length(s);i++){if(s[i]==c)letra++;}
+   return letra;
+}
+
+string substring(string s,int d,int h)
+{
+   string sub;//string vacia
+   for(int k=d;k<h;k++){sub+=s[k];}//acumulador, s[k es de mi cadena "Esto es una prueba" y sub la cadena vacia
+   return sub;
+}
+
+string substring(string s,int d) // ok
+{
+   string sub;
+   do{
+      sub+=s[d];
+      d++;
+   }
+   while(s[d]!='\0');
+   return sub;
+}
+
+int indexOf(string s,char c) // ok
+{
+   int i=0;
+   while(s[i]!='\0')
+      if(s[i]==c)
+         return i;
+         i++;
+   return -1;
+}
+
+int indexOf(string s,char c,int offSet) // ok
+{
+   while(s[offSet!='\0']){
+      if(s[offSet]==c){return offSet;}
+      offSet++;
+   }
+   return -1; // Por si el caracetr no esta en la cadena
+}
+
+int indexOf(string s,string toSearch) // ok
+{
+   string r="";
+   for(int i=0;i<length(s);i++){
+      if(s[i]==toSearch[0]){
+         r=substring(s,i,length(toSearch)+i);
+         return i;
+      }
+   }
+   return -1;
+}
+
+int indexOf(string s,string toSearch,int offset) // ok
+{
+   string r="";
+   for(int i=offset;i<length(s);i++){
+      if(s[i]==toSearch[0]){
+         r=substring(s,i,length(toSearch)+i);
+         return i;
+      }
+   }
+   return -1;
+}
+
+int lastIndexOf(string s,char c)
+{
+   int r;
+   for(int i=0;i<length(s);i++){
+      if(s[i]==c)
+         r=i;
+   }
+      return r;
+}
+
+int indexOfN(string s,char c,int n)
+{
+   int a=0;
+   for(int i=0;i<length(s);i++){
+      if(s[i]==c){
+         a++;
+      }
+      if(a==n)
+         return i;
+   }
+   return -1;
+}
+
+int charToInt(char c)
+{
+   int a =int(c)-'0';
+   return a;
+}
+
+char intToChar(int i)
+{
+   return i+'0';
+}
+
+int getDigit(int n,int i)
+{
+   string a=to_string(n);
+   int b=length(a);
+   char c;
+   int d;
+   if(i>=0 && i<=b-1){
+      c=a[b-i-1];
+      d=charToInt(c);
+   }
+   return d;
+}
+
+int digitCount(int n)
+{
+   string a=to_string(n);
+   return length(a);
+}
+
+string intToString(int i)
+{
+   return to_string(i);
+}
+
+int stringToInt(string s,int b) // ok
+{
+   int l=length(s);
+   int m=1,i=0,a=0,d=0;
+   char c;
+   while(s[i]!='\0'){
+      c=s[i];//cada caracter de s[i
+      a=charToInt(c);//castea cada digitode la cadena
+      d=d+a*pow(b,l-m);//d=0+charToInt(c)*(base,exponente=length(s)-1)
+                       //d=0+1*
+      i++;//va al sig caracter
+      m++;//sig exponente
+      if(s[i]=='A' || s[i]=='a'){
+         a=10;
+         d=d+a*pow(b,l-m);
+         i++;
+         m++;
+      }
+      if(s[i]=='B' || s[i]=='b'){
+               a=11;
+               d=d+a*pow(b,l-m);
+               i++;
+               m++;
+            }
+      if(s[i]=='C' || s[i]=='c'){
+               a=12;
+               d=d+a*pow(b,l-m);
+               i++;
+               m++;
+            }
+      if(s[i]=='D' || s[i]=='d'){
+               a=13;
+               d=d+a*pow(b,l-m);
+               i++;
+               m++;
+            }
+      if(s[i]=='E' || s[i]=='e'){
+               a=14;
+               d=d+a*pow(b,l-m);
+               i++;
+               m++;
+            }
+      if(s[i]=='F' || s[i]=='f'){
+               a=15;
+               d=d+a*pow(b,l-m);
+               i++;
+               m++;
+            }
+   }
+   return d;
+}
+
+int stringToInt(string s) // ok
+{
+   int l=length(s);
+   int m=1, b=10, i=0, a=0, d=0;
+   char c;
+   while(s[i]!='\0'){
+      c=s[i];//cada caracter de s[i
+      a=charToInt(c);//castea cada digito de la cadena
+      d=d+a*pow(b,l-m);//d=0+charToInt(c)*(base,exponente=length(s)-1)
+                       //d=0+1*
+      i++;//va al sig caracter
+      m++;
+   }
+   return d+1;
+}
+
+string charToString(char c)
+{
+   string r=" ";
+   r[0]=c;
+   return r;
+}
+
+char stringToChar(string s)
+{
+   char r=s[0];
+   return r;
+}
+
+string stringToString(string s)
+{
+   return s;
+}
+
+string doubleToString(double d)
+{
+   string s=to_string(d);
+   return s;//corregir los ceros demas
+}
+
+double stringToDouble(string s)
+{
+   return stod(s);
+}
+
+bool isEmpty(string s)
+{
+   bool r=true;
+   int a=length(s);
+   if(length(s)>0){r=false;}
+   return r;
+}
+
+bool startsWith(string s,string x)
+{
+   int cont=0,i=0,j=0,m=0;
+   bool r=false;
+   do{
+      if(s[i]==x[j]){cont++;}
+      i++;
+      j++;
+      m++;
+   }
+   while(m<length(x));
+   if(cont==length(x)){r=true;}
+   return r;
+}
+
+bool endsWith(string s,string x)
+{
+   bool r=false;
+   int inicialSufijo=indexOf(s,x);//indexOf retorna la pos que ocupa la primera ocurrencia del caracter c dentro de la cadena s
+   if(x==substring(s,inicialSufijo,length(s))){r=true;}//substring retorna la subcadena de s comprendida entre las pos d(inclusive) y h (no inclusive)
+   return r;//s es la cadena, inicialSufijo es la pos del sufijo, length es la tamanio de s
+}
+
+bool contains(string s,char c)
+{
+   bool flag=false;
+   int i=0, cont=0;
+   do{
+      if(s[i]==c){cont++;}
+      i++;
+   }
+   while(s[i]!='\0');
+   if(cont>0){flag=true;}
+   return flag;
+}
+
+string replace(string s,char oldChar,char newChar)
+{
+   for(int i=0;i<length(s);i++){
+      if(s[i]==oldChar){s[i]=newChar;}
+   }
+   return s;
+}
+
+string insertAt(string s,int pos,char c)
+{
+   string r=substring(s,0,pos);
+   string q=substring(s,pos,length(s));
+   return r+c+q;
+}
+
+string removeAt(string s,int pos)
+{
+   int n=length(s);
+   for(int i=0;i<n;i++){
+      if(i==pos){
+         do{
+            s[i]=s[i+1];
+         }
+         while(i<n);
+      }
+   }
+   return s;
+}
+
+string ltrim(string s)
+{
+   string r;
+   int tam=length(s);
+   int cont=0, i=0;
+   do{
+      if(s[i]= ' '){cont++;}
+      i++;
+   }
+   while(s[i]==' ');
+   for(int j=cont;j<tam;j++){r+=s[j];}
+   return r;
+}
+
+string rtrim(string s)
+{
+   string r;
+   int tam=length(s);
+   int cont=0;
+   do{
+      if(s[tam]==' '){cont++;}
+      tam--;
+   }
+   while(s[tam]==' ');
+   for(int j=0;length(s)-cont;j++){r+=s[j];}
+   return r;
+}
+
+string trim(string s)
+{
+   string t=rtrim(s);
+   string q=ltrim(t);
+   return q;
+}
+
+string replicate(char c,int n)
+{
+   string s;
+   for(int i=0;i<n;i++){s+=c;}//sumo cadena y caracter
+   return s;
+}
+
+string spaces(int n)
+{
+   return replicate(' ',n);
+}
+
+string lpad(string s,int n,char c)
+{
+   string b;
+   int a=length(s);
+   if((n-a)>0){
+      string r=replicate(c,n-a);
+      b=r+s;
+   }
+   return b;
+}
+
+string rpad(string s,int n,char c)
+{
+   string b;
+   int a=length(s);
+   if((n-a)>0){
+      string r=replicate(c,n-a);
+      b=s+r;
+   }
+   return b;
+}
+
+string cpad(string s,int n,char c)
+{
+   string r=replicate(c,(n-length(s))/2);
+   string q=replicate(c,(n-length(s))/2); // Las X de la derecha
+   return r+s+q;
+}
+
+bool isDigit(char c)
+{
+   bool r=false;
+   if(c=='1' || c=='2' || c=='3' || c=='4' || c=='5'
+      || c=='6' || c=='7' || c=='8' || c=='9'){r=true;}
+   return r;
+}
+
+bool isLetter(char c)
+{
+   bool r=true;
+   if(c=='1' || c=='2' || c=='3' || c=='4' || c=='5'
+      || c=='6' || c=='7' || c=='8' || c=='9'){r=false;}
+   return r;
+}
+
+bool isUpperCase(char c)
+{
+   bool r=false;
+   if(c>64 && c<91){r=true;}
+   return r;
+}
+
+bool isLowerCase(char c)
+{
+   bool r=false;
+      if(c>96 && c<123){r=true;}
+      return r;
+}
+
+char toUpperCase(char c)
+{
+   if(isLowerCase(c)){return c-32;}
+   else{return c;}
+}
+
+char toLowerCase(char c)
+{
+   if(isUpperCase(c)){return c+32;}
+   else{return c;}
+}
+
+string toUpperCase(string s)
+{
+   string ret;
+   for(int i=0;i<length(s);i++){ret+=toLowerCase((char)s[i]);}
+   return ret;
+}
+
+string toLowerCase(string s)
+{
+   string ret;
+   for(int i=0;i<length(s);i++){ret+=toLowerCase((char)s[i]);}
+   return ret;
+}
+
+
+#endif
