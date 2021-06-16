@@ -1,0 +1,69 @@
+#ifndef _TTOKENS_T_
+#define _TTOKENS_T_
+
+#include <iostream>
+#include <stdio.h>
+#include "strings.hpp"
+using namespace std;
+
+int tokenCount(string s,char sep)
+{
+   if(length(s)>0){return charCount(s,sep)+1;}
+   else{return 0;}//si es vacia retorne 0
+
+}
+
+void addToken(string& s,char sep,string t)
+{
+   if(s==""){s=t;}
+   else{s=s+sep+t;}
+}
+
+string getTokenAt(string s,char sep, int i)
+{
+   //John|Paul|George|Ringo
+   string r;
+   string fail="-1";
+   if(i==0){for(int j=0;s[j]!=sep;j++){r+=s[j];}//pos 0
+   return r;}
+   if(i==(tokenCount(s,sep)-1)){int posFinal=lastIndexOf(s,sep)}//pos final
+   if(i>(tokenCount(s,sep)-1)){return fail;}//si en caso es mayor
+   else{
+      for(int j=indexOfN(s,sep,i)+1;j<indexOfN(s,sep,i+1);j++){r+=s[j];}
+      return r;
+   }
+}
+
+void removeTokenAt(string& s,char sep, int i)
+{
+   //John|Paul|George|Ringo
+   if(i==0){string r=substring(s,indexOfN(s,sep,i+1)+1);s=r;}//copio desde el 1er token hasta el final
+   if(i==tokenCount(s,sep)-1){string r=substring(s,0,indexOfN(s,sep,i));s=r;}//quitar ultimo token
+
+   string r=substring(s,0,indexOfN(s,sep,i));
+   string q=substring(s,indexOfN(s,sep,i+1),length(s));
+   s=r+q;
+}
+
+void setTokenAt(string& s,char sep, string t,int i)
+{
+if(i==0){string r=substring(s,indexOfN(s,sep,i+1));s=t+r;}//para pos0
+if(i==tokenCount(s,sep)-1){string r=substring(s,0,indexOfN(s,sep,i)+1);s=r+t;}//para posFinal
+
+string r=substring(s,0,indexOfN(s,sep,i)+1);//subcadena hasta el 1er |
+string q=substring(s,indexOfN(s,sep,i+1),length(s));//subcadena restante
+s=r+t+q;
+}
+
+int findToken(string s,char sep, string t)
+{
+   for(int i=0;i<tokenCount(s,sep);i++){
+      if(getTokenAt(s,sep,i)==t){//getTokenAt es la palabrade cada token, la comparo para ver si
+                                 //coincide con t que es la que busco
+         return i; //devuelve la pos del getTokenAt
+      }
+   }
+   return -1; // sino que devuelva -1
+}
+
+#endif
